@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="img/logo.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <title>MyStartCode/Login</title>
+    <style>
+
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 400px;
+            margin-left: 40%;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header h2 {
+            color: #088178;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #222;
+            font-weight: 600;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #088178;
+        }
+
+        .nested-select {
+            display: none;
+            margin-top: 1rem;
+        }
+
+        .button {
+            background-color: #088178;
+            color: white;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #066e67;
+        }
+
+        .error-message {
+            color: #ff0000;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <section id="header">
+        <a href="#"><img src="img/logo.png" class="logo" alt=""></a>
+
+            <div>
+                <ul id="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="chatbot.html">ChatBot</a></li>
+                    <li id="lg-bag"><a href="cart.html"><i class="far fa-shopping-bag"></i></a></li>
+                    <a href="#" id="close"><i class="far fa-times"></i></a>
+                </ul>
+            </div>  
+            <div id="mobile">
+                <a herf="kalata.html"><i class="far fa-shopping-bag"></i></a>
+                <i id="bar" class="fas fa-outdent"></i>
+            </div>          
+    </section>
+
+    <div class="container">
+        <div class="form-header">
+            <h2>Login</h2>
+            <p>Welcome back!</p>
+        </div>
+        <form id="loginForm" onsubmit="return validateForm(event)">
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <div id="emailError" class="error-message">Please enter a valid email address</div>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <div id="passwordError" class="error-message">Password must be at least 6 characters</div>
+            </div>
+
+
+        <a href="index.html">
+            <button type="submit" class="button">Login</button>
+        </a>
+        </form>
+    </div>
+
+    <script>
+        
+
+        function validateForm(event) {
+            event.preventDefault();
+            
+            let isValid = true;
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+            
+            // Password validation
+            if (password.value.length < 6) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+            
+            if (isValid) {
+                // Collect form data
+                const formData = {
+                    email: email.value,
+                    password: password.value,
+                };
+                
+                
+                console.log('Form submitted:', formData);
+                // Here you would typically send the data to your server
+                alert('Login successful!');
+            }
+            
+            return false;
+        }
+    </script>
+
+<footer class="section-p1">
+    <div class="col">
+        <img  class="logo"  src="img/logo.png" alt="">
+        <h4>Contact</h4>
+        <p><strong>Phone</strong> +995 599 326 577</p>
+        <p><strong>Hours</strong> 10:00 - 18:00, Mon - Sat</p>
+        <p><strong>E-mail</strong> infomystartcode@gmail.com</p>
+        <div class="follow">
+            <h4>Follow Us</h4>
+            <div class="icon">
+                <i class="fab fa-facebook-f"></i>
+                <a href="https://www.instagram.com/mystartcode.ge/followers/mutualOnly">
+                <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+    </div>
+
+    <div class="col">
+        <h4>My Account</h4>
+        <a href="signup.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="login.html">Login</a>
+        <a href="#">Help</a>
+    </div>
+
+    <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+        <div class="row">
+            <img src="img/pay/app.jpg" alt="">
+            <img src="img/pay/play.jpg" alt="">
+        </div>
+        <p>Secured Payment Gateways</p>
+        <img src="img/pay/pay.png" alt="">
+    </div>
+
+    <div class="copyright">
+        <p>2024, MyStartCode etc - HTML CSS Ecommerce Template</p>
+    </div>
+</footer>
+
+</body>
+</html>

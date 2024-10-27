@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="img/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyStartCode/ChatBot</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Spartan', sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: #088178;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            height: 400px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message.bot {
+            flex-direction: row;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin: 0 10px;
+        }
+
+        .bot .message-content {
+            background: #e3e6f3;
+            color: #1a1a1a;
+        }
+
+        .user .message-content {
+            background: #088178;
+            color: white;
+        }
+
+        .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #cce7d0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .bot .avatar {
+            background: #cce7d0;
+            color: #088178;
+        }
+
+        .user .avatar {
+            background: #088178;
+            color: white;
+        }
+
+        .chat-input {
+            padding: 20px;
+            border-top: 1px solid #e1e1e1;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #e1e1e1;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            background: #088178;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .chat-input button:hover {
+            background: #066963;
+        }
+
+        @media (max-width: 600px) {
+            .chat-container {
+                margin: 10px;
+                height: calc(100vh - 20px);
+            }
+            
+            .chat-messages {
+                height: calc(100vh - 140px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <section id="header">
+        <a href="#"><img src="img/logo.png" class="logo" alt=""></a>
+
+            <div>
+                <ul id="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a class="active" href="chatbot.html"">ChatBot</a></li>
+                    <li id="lg-bag"><a href="cart.html"><i class="far fa-shopping-bag"></i></a></li>
+                    <a href="#" id="close"><i class="far fa-times"></i></a>
+                </ul>
+            </div>  
+            <div id="mobile">
+                <a herf="kalata.html"><i class="far fa-shopping-bag"></i></a>
+                <i id="bar" class="fas fa-outdent"></i>
+            </div>          
+    </section>
+
+
+
+
+    <div class="chat-container">
+        <div class="chat-header">
+            MyStartCode ChatBot
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot">
+                <div class="avatar">B</div>
+                <div class="message-content">
+                    მოგესალმებით მე ვარ MyStartCode ის Assistant. რით შემიძლია დაგეხმაროთ?
+                </div>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Type your message here..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+
+        // Basic responses for the chatbot
+        const responses = {
+            "გამარჯობა": "გამარჯობა რით შემილია დაგეხმაროთ?",
+            "მე მჭირდება ვებ-დეველოპერი": "ვებ-დეველოპერები რომლებიც ჩვენს ბაზაში არიან:გიორგი; რატი; ნიკა. ამათგან ახლა სცალია რატის. რატის საკონტაქტო ინფორმაციაა +995 511 123 456",
+            "how are you": "I'm doing well, thank you! How can I help you?",
+            "pricing": "Our web development services start from $15,000. Would you like to know more about specific services?",
+            "contact": "You can reach us at infomystartcode@gmail.com or call +995 599 326 577",
+            "services": "We offer web development, mobile app development, and game development services. Which one interests you?",
+            "developers": "We have experienced developers in various fields including web, mobile, and game development. Would you like to know more about a specific field?",
+            "web development": "Our web development services include full-stack development, e-commerce solutions, and custom web applications. What type of website are you looking to build?",
+            "mobile development": "We develop both iOS and Android applications. Our team uses React Native and Flutter for cross-platform development.",
+            "game development": "We create games using Unity and Unreal Engine. Would you like to discuss your game idea?",
+            "bye": "Thank you for chatting! Have a great day!",
+            "default": "I'm not sure about that. Could you please contact our support team at infomystartcode@gmail.com for more detailed information?"
+        };
+
+        function addMessage(message, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'avatar';
+            avatar.textContent = isUser ? 'U' : 'B';
+            
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            content.textContent = message;
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function getBotResponse(userMessage) {
+            const message = userMessage.toLowerCase();
+            for (let key in responses) {
+                if (message.includes(key)) {
+                    return responses[key];
+                }
+            }
+            return responses.default;
+        }
+
+        function sendMessage() {
+            const message = userInput.value.trim();
+            if (message === '') return;
+
+            // Add user message
+            addMessage(message, true);
+            userInput.value = '';
+
+            // Simulate bot thinking
+            setTimeout(() => {
+                const botResponse = getBotResponse(message);
+                addMessage(botResponse, false);
+            }, 500);
+        }
+
+        // Allow Enter key to send message
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+
+<footer class="section-p1">
+    <div class="col">
+        <img  class="logo"  src="img/logo.png" alt="">
+        <h4>Contact</h4>
+        <p><strong>Phone</strong> +995 599 326 577</p>
+        <p><strong>Hours</strong> 10:00 - 18:00, Mon - Sat</p>
+        <p><strong>E-mail</strong> infomystartcode@gmail.com</p>
+        <div class="follow">
+            <h4>Follow Us</h4>
+            <div class="icon">
+                <i class="fab fa-facebook-f"></i>
+                <a href="https://www.instagram.com/mystartcode.ge/followers/mutualOnly">
+                <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+    </div>
+
+    <div class="col">
+        <h4>My Account</h4>
+        <a href="signup.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="login.html">Login</a>
+        <a href="#">Help</a>
+    </div>
+
+    <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+        <div class="row">
+            <img src="img/pay/app.jpg" alt="">
+            <img src="img/pay/play.jpg" alt="">
+        </div>
+        <p>Secured Payment Gateways</p>
+        <img src="img/pay/pay.png" alt="">
+    </div>
+
+    <div class="copyright">
+        <p>2024, MyStartCode etc - HTML CSS Ecommerce Template</p>
+    </div>
+</footer>
+
+</body>
+</html>

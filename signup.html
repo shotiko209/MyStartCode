@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="img/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <title>MyStartCode/Signup</title>
+    <style>
+        
+
+
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            margin-left: 40%;
+        }
+
+        h2 {
+            color: #088178;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .conditional-fields {
+            display: none;
+            margin-top: 1rem;
+            padding-left: 1rem;
+            border-left: 2px solid #088178;
+        }
+
+        button {
+            background: #088178;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #066e67;
+        }
+
+        .visible {
+            display: block;
+        }
+
+        .error {
+            color: #ff0000;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+<body>
+
+
+    <section id="header">
+        <a href="#"><img src="img/logo.png" class="logo" alt=""></a>
+
+            <div>
+                <ul id="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="chatbot.html">ChatBot</a></li>
+                    <li id="lg-bag"><a href="cart.html"><i class="far fa-shopping-bag"></i></a></li>
+                    <a href="#" id="close"><i class="far fa-times"></i></a>
+                </ul>
+            </div>  
+            <div id="mobile">
+                <a herf="kalata.html"><i class="far fa-shopping-bag"></i></a>
+                <i id="bar" class="fas fa-outdent"></i>
+            </div>          
+    </section>
+
+
+
+    <div class="form-container">
+        <h2>Sign Up</h2>
+        <form id="signupForm" onsubmit="return validateForm(event)">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="userType">I am a</label>
+                <select id="userType" name="userType" required>
+                    <option value="">Select Type</option>
+                    <option value="business">Business</option>
+                    <option value="developer">Developer</option>
+                </select>
+            </div>
+
+            <div id="developerFields" class="conditional-fields">
+                <div class="form-group">
+                    <label for="developerType">Developer Type</label>
+                    <select id="developerType" name="developerType">
+                        <option value="">Select Developer Type</option>
+                        <option value="game">Game Developer</option>
+                        <option value="web">Web Developer</option>
+                        <option value="mobile">Mobile Developer</option>
+                    </select>
+                </div>
+
+                <div id="gameDevFields" class="conditional-fields">
+                    <div class="form-group">
+                        <label for="gameEngine">Game Engine</label>
+                        <select id="gameEngine" name="gameEngine">
+                            <option value="">Select Game Engine</option>
+                            <option value="unity">Unity</option>
+                            <option value="unreal">Unreal Engine</option>
+                            <option value="godot">Godot</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="webDevFields" class="conditional-fields">
+                    <div class="form-group">
+                        <label for="webTech">Web Technology</label>
+                        <select id="webTech" name="webTech">
+                            <option value="">Select Web Technology</option>
+                            <option value="fullstack">Full Stack</option>
+                            <option value="frontend">HTML/CSS/JavaScript</option>
+                            <option value="react">React</option>
+                            <option value="angular">Angular</option>
+                            <option value="vue">Vue.js</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="mobileDevFields" class="conditional-fields">
+                    <div class="form-group">
+                        <label for="mobilePlatform">Mobile Platform</label>
+                        <select id="mobilePlatform" name="mobilePlatform">
+                            <option value="">Select Mobile Platform</option>
+                            <option value="android">Android (Native)</option>
+                            <option value="ios">iOS (Native)</option>
+                            <option value="react-native">React Native</option>
+                            <option value="flutter">Flutter</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        <a href="login.html">
+            <button type="submit">Sign Up</button>
+        </a>    
+        </form>
+    </div>
+
+    <script>
+        const userTypeSelect = document.getElementById('userType');
+        const developerFields = document.getElementById('developerFields');
+        const developerTypeSelect = document.getElementById('developerType');
+        const gameDevFields = document.getElementById('gameDevFields');
+        const webDevFields = document.getElementById('webDevFields');
+        const mobileDevFields = document.getElementById('mobileDevFields');
+
+        userTypeSelect.addEventListener('change', function() {
+            if (this.value === 'developer') {
+                developerFields.classList.add('visible');
+            } else {
+                developerFields.classList.remove('visible');
+                developerTypeSelect.value = '';
+                hideAllDevFields();
+            }
+        });
+
+        developerTypeSelect.addEventListener('change', function() {
+            hideAllDevFields();
+            switch(this.value) {
+                case 'game':
+                    gameDevFields.classList.add('visible');
+                    break;
+                case 'web':
+                    webDevFields.classList.add('visible');
+                    break;
+                case 'mobile':
+                    mobileDevFields.classList.add('visible');
+                    break;
+            }
+        });
+
+        function hideAllDevFields() {
+            gameDevFields.classList.remove('visible');
+            webDevFields.classList.remove('visible');
+            mobileDevFields.classList.remove('visible');
+        }
+
+        function validateForm(event) {
+            event.preventDefault();
+            
+            // Remove any existing error messages
+            const existingErrors = document.querySelectorAll('.error');
+            existingErrors.forEach(error => error.remove());
+
+            let isValid = true;
+            const userType = userTypeSelect.value;
+
+            // Basic validation
+            if (!document.getElementById('name').value.trim()) {
+                showError('name', 'Name is required');
+                isValid = false;
+            }
+
+            if (!document.getElementById('email').value.trim()) {
+                showError('email', 'Email is required');
+                isValid = false;
+            }
+
+            if (!document.getElementById('password').value) {
+                showError('password', 'Password is required');
+                isValid = false;
+            }
+
+            // Developer-specific validation
+            if (userType === 'developer') {
+                const devType = developerTypeSelect.value;
+                if (!devType) {
+                    showError('developerType', 'Please select developer type');
+                    isValid = false;
+                } else {
+                    // Validate specific developer fields
+                    switch(devType) {
+                        case 'game':
+                            if (!document.getElementById('gameEngine').value) {
+                                showError('gameEngine', 'Please select game engine');
+                                isValid = false;
+                            }
+                            break;
+                        case 'web':
+                            if (!document.getElementById('webTech').value) {
+                                showError('webTech', 'Please select web technology');
+                                isValid = false;
+                            }
+                            break;
+                        case 'mobile':
+                            if (!document.getElementById('mobilePlatform').value) {
+                                showError('mobilePlatform', 'Please select mobile platform');
+                                isValid = false;
+                            }
+                            break;
+                    }
+                }
+            }
+
+            if (isValid) {
+                alert('Form submitted successfully!');
+                document.getElementById('signupForm').reset();
+                hideAllDevFields();
+                developerFields.classList.remove('visible');
+            }
+
+            return false;
+        }
+
+        function showError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const error = document.createElement('div');
+            error.className = 'error';
+            error.textContent = message;
+            field.parentNode.appendChild(error);
+        }
+    </script>
+
+<footer class="section-p1">
+    <div class="col">
+        <img  class="logo"  src="img/logo.png" alt="">
+        <h4>Contact</h4>
+        <p><strong>Phone</strong> +995 599 326 577</p>
+        <p><strong>Hours</strong> 10:00 - 18:00, Mon - Sat</p>
+        <p><strong>E-mail</strong> infomystartcode@gmail.com</p>
+        <div class="follow">
+            <h4>Follow Us</h4>
+            <div class="icon">
+                <i class="fab fa-facebook-f"></i>
+                <a href="https://www.instagram.com/mystartcode.ge/followers/mutualOnly">
+                <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <h4>About</h4>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+    </div>
+
+    <div class="col">
+        <h4>My Account</h4>
+        <a href="signup.html">Sign In</a>
+        <a href="cart.html">View Cart</a>
+        <a href="login.html">Login</a>
+        <a href="#">Help</a>
+    </div>
+
+    <div class="col install">
+        <h4>Install App</h4>
+        <p>From App Store or Google Play</p>
+        <div class="row">
+            <img src="img/pay/app.jpg" alt="">
+            <img src="img/pay/play.jpg" alt="">
+        </div>
+        <p>Secured Payment Gateways</p>
+        <img src="img/pay/pay.png" alt="">
+    </div>
+
+    <div class="copyright">
+        <p>2024, MyStartCode etc - HTML CSS Ecommerce Template</p>
+    </div>
+</footer>
+</body>
+</html>
